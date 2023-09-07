@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import { getRandomPopularMovieBackdropUrl } from "../functions/functions";
+import { getRandomPopularMovieBackdropUrl, } from "../functions/functions";
 import { IoIosSearch } from "react-icons/io";
 
 const SearchSection = () => {

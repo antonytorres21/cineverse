@@ -41,6 +41,12 @@ function Header() {
                   >
                     Series
                   </Link>
+                  <Link
+                    to="/"
+                    className="text-white px-3 py-2 rounded-md text-sm font-medium"
+                  >
+                    Sobre la Web
+                  </Link>
                 </div>
               </div>
             </div>
