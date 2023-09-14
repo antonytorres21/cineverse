@@ -1,9 +1,12 @@
 import React, { useState, useEffect } from "react";
-import { getRandomPopularMovieBackdropUrl, } from "../functions/functions";
+import { useNavigate } from "react-router-dom";
+import { getRandomPopularMovieBackdropUrl } from "../functions/functions";
 import { IoIosSearch } from "react-icons/io";
 
 const SearchSection = () => {
   const [backgroundImage, setBackgroundImage] = useState("");
+  const [searchTerm, setSearchTerm] = useState("");
+  const navigate = useNavigate();
 
   useEffect(() => {
     async function fetchRandomPosterUrl() {
@@ -20,6 +23,15 @@ const SearchSection = () => {
     fetchRandomPosterUrl();
   }, []);
 
+  const handleSearch = (event) => {
+    const newSearchTerm = event.target.value;
+    setSearchTerm(newSearchTerm);
+  };
+
+  const handleCardClick = (search) => {
+    navigate(`/search/${search}`, { state: { searchTerm } });
+  };
+
   return (
     <div
       className="container relative h-72 bg-origin-content bg-cover bg-center "
@@ -32,11 +44,16 @@ const SearchSection = () => {
           <h1 className="font-semibold">Encuentra tu pelicula favorita</h1>
           <div className="px-6 rounded-md items-center justify-center flex my-4 md:my-0">
             <input
+              onChange={handleSearch}
+              value={searchTerm}
               type="text"
               placeholder="Buscar películas..."
               className="w-64 px-4 py-2 text-black rounded-l-lg h-8 "
             />
-            <button className="bg-gray-300 border-black h-8 w-7 flex items-center justify-center rounded-r-lg">
+            <button
+              onClick={() => handleCardClick(searchTerm)}
+              className="bg-gray-300 border-black h-8 w-7 flex items-center justify-center rounded-r-lg"
+            >
               <IoIosSearch className="text-black" />
             </button>
           </div>

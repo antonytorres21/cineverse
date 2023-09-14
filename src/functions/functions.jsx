@@ -145,6 +145,9 @@ export async function getTrendingMoviesToday() {
 }
 
 export function colorBasedOnValue(value) {
+  if (isNaN(value)) {
+    return "#F44336"; // Rojo
+  }
   const conditions = [
     { condition: value >= 0 && value < 10, color: "#F44336" }, // Rojo
     { condition: value >= 10 && value < 20, color: "#FF5722" },
@@ -159,6 +162,7 @@ export function colorBasedOnValue(value) {
   ];
 
   const matchingCondition = conditions.find(({ condition }) => condition);
+  
   return matchingCondition.color;
 }
 
@@ -202,23 +206,24 @@ export async function getPopularTV() {
   }
 }
 
-export async function search(keyword){
+export async function searchFunction(keyword) {
   try {
     const options = {
       method: "GET",
       headers: {
         accept: "application/json",
+        Authorization:
+          "Bearer eyJhbGciOiJIUzI1NiJ9.eyJhdWQiOiJjN2UxMzc4ODUzMGM5YmU4ZjA3ZDVlNjQ5ZGI2YmUzOSIsInN1YiI6IjY0YzJlZjE3NjZhMGQzMDBlN2Q1M2MxNSIsInNjb3BlcyI6WyJhcGlfcmVhZCJdLCJ2ZXJzaW9uIjoxfQ.-B_kq7RMTBc74aTw_8yk7SWon1R5nMKVxwkpWLT4WW8",
       },
     };
 
     const response = await fetch(
-      `https://api.themoviedb.org/3/search/keyword?query=cars&page=1`,
+      `https://api.themoviedb.org/3/search/multi?query=${keyword}&include_adult=false&language=en-US&page=1`,
       options
     );
 
     const result = await response.json();
     return result.results;
-
   } catch (error) {
     throw new Error("Error");
   }
