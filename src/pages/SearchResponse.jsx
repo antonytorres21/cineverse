@@ -4,6 +4,8 @@ import { IoIosSearch } from "react-icons/io";
 import { useLocation, useNavigate, useParams } from "react-router-dom";
 import { searchFunction } from "../functions/functions";
 import PresentationCardColumn from "../components/PresentationCardColumn";
+import LoadingSpinner from "../components/LoadingSpinner";
+import Pagination from "../components/Pagination";
 
 function SearchResponse() {
   const navigate = useNavigate();
@@ -11,27 +13,46 @@ function SearchResponse() {
   const { search } = useParams();
   const [results, setResults] = useState([]);
   const [term, setTerm] = useState("");
-  const { searchTerm } = location.state;
+  const { searchTerm } = !location.state ? "" : location.state;
+  const [currentPage, setCurrentPage] = useState(1);
+  const [totalPages, setTotalPages] = useState(0);
+
   const handleChange = (event) => {
     setTerm(event.target.value);
+  };
+  const handlePageChange = (page) => {
+    if (page !== null && page !== undefined) {
+      setCurrentPage(page);
+    }
   };
 
   useEffect(() => {
     async function fetchResult() {
       try {
-        setTerm(searchTerm);
-        const aux = await searchFunction(!term ? searchTerm : term);
-        // Filtra los elementos que no tienen "known_for"
-        const result = aux.filter((item) => !item.known_for);
-        setResults(result); // Establece el estado de los resultados filtrados
-        console.log(result);
+        if (!searchTerm) {
+          setTerm(search);
+        } else {
+          setTerm(searchTerm);
+        }
+        //console.log(currentPage);
+        const aux = await searchFunction(
+          !term ? searchTerm : term,
+          currentPage
+        );
+        const result = aux.results.filter((item) => !item.known_for);
+         if (aux.page !== null && aux.page !== undefined) {
+           setCurrentPage(aux.page);
+         }
+        
+        setTotalPages(aux.totalPages);
+        setResults(result);
       } catch (error) {
         console.error("Error obteniendo resultados:", error);
       }
     }
 
-    fetchResult(); // Llama a la función fetchResult
-  }, [searchTerm]); // Asegúrate de que useEffect se ejecute cuando searchTerm cambie
+    fetchResult();
+  }, [searchTerm, search, term, currentPage]);
 
   const handleCardClick = (search) => {
     navigate(`/search/${search}`, { state: { searchTerm } });
@@ -53,17 +74,36 @@ function SearchResponse() {
         >
           <IoIosSearch className="text-black" />
         </button>
-
-        <div className="overflow-x-auto">
-          <div className="flex gap-4 rounded p-4">
-            {results.map((movie) => (
-              <PresentationCardColumn key={movie.id} movie={movie} /> // Utiliza el componente PresentationCard
-            ))}
-          </div>
-        </div>
       </div>
+      <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4 px-6">
+        {!results.length ? (
+          !results.length && term.length ? (
+            <div className="flex flex-col items-center justify-center h-screen">
+              <p className="text-gray-600 text-lg">
+                No results found with the search parameters.
+              </p>
+            </div>
+          ) : (
+            <LoadingSpinner />
+          )
+        ) : (
+          results.map((movie) => (
+            <PresentationCardColumn key={movie.id} movie={movie} /> // Utiliza el componente PresentationCard
+          ))
+        )}
+      </div>
+
+      <Pagination
+        currentPage={currentPage}
+        totalPages={totalPages}
+        onPageChange={handlePageChange}
+      />
     </>
   );
 }
 
 export default SearchResponse;
+
+/**
+ *
+ */

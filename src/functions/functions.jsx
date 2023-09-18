@@ -162,7 +162,7 @@ export function colorBasedOnValue(value) {
   ];
 
   const matchingCondition = conditions.find(({ condition }) => condition);
-  
+
   return matchingCondition.color;
 }
 
@@ -206,7 +206,7 @@ export async function getPopularTV() {
   }
 }
 
-export async function searchFunction(keyword) {
+export async function searchFunction(keyword, page) {
   try {
     const options = {
       method: "GET",
@@ -216,14 +216,19 @@ export async function searchFunction(keyword) {
           "Bearer eyJhbGciOiJIUzI1NiJ9.eyJhdWQiOiJjN2UxMzc4ODUzMGM5YmU4ZjA3ZDVlNjQ5ZGI2YmUzOSIsInN1YiI6IjY0YzJlZjE3NjZhMGQzMDBlN2Q1M2MxNSIsInNjb3BlcyI6WyJhcGlfcmVhZCJdLCJ2ZXJzaW9uIjoxfQ.-B_kq7RMTBc74aTw_8yk7SWon1R5nMKVxwkpWLT4WW8",
       },
     };
-
     const response = await fetch(
-      `https://api.themoviedb.org/3/search/multi?query=${keyword}&include_adult=false&language=en-US&page=1`,
+      `https://api.themoviedb.org/3/search/multi?query=${keyword}&include_adult=false&language=en-US&page=${
+        page === 0 ? 1 : page
+      }`,
       options
     );
 
-    const result = await response.json();
-    return result.results;
+    const data = await response.json();
+    const results = data.results;
+    const currentPage = parseInt(data.page);
+    const totalPages = data.total_pages;
+
+    return { results, currentPage, totalPages };
   } catch (error) {
     throw new Error("Error");
   }

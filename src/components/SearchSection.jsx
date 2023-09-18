@@ -44,6 +44,11 @@ const SearchSection = () => {
           <h1 className="font-semibold">Encuentra tu pelicula favorita</h1>
           <div className="px-6 rounded-md items-center justify-center flex my-4 md:my-0">
             <input
+              onKeyDown={(e) => {
+                if (e.key === "Enter") {
+                  handleCardClick(searchTerm);
+                }
+              }}
               onChange={handleSearch}
               value={searchTerm}
               type="text"
