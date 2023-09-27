@@ -1,11 +1,17 @@
-
 import React from "react";
 import { CircularProgressbar, buildStyles } from "react-circular-progressbar";
 import "react-circular-progressbar/dist/styles.css";
 import { colorBasedOnValue } from "../functions/functions";
+import { useNavigate } from "react-router-dom";
+import defaulIMG from "../assets/DefaultImage.png";
 
 const PresentationCard = ({ movie }) => {
   const progress = (movie.vote_average * 10).toFixed(0);
+  const navigate = useNavigate();
+
+  const handleCardClick = (search) => {
+    navigate(`/search/${search}`, { state: { movie } });
+  };
 
   return (
     <div
@@ -15,10 +21,15 @@ const PresentationCard = ({ movie }) => {
       onClick={() => {}}
     >
       <img
-        src={`https://image.tmdb.org/t/p/w300${movie.poster_path}`}
+        src={
+          movie.poster_path
+            ? `https://image.tmdb.org/t/p/w300${movie.poster_path}`
+            : defaulIMG
+        }
         alt={movie.title}
         className="mb-2 rounded"
       />
+
       <CircularProgressbar
         background
         backgroundPadding={6}
@@ -36,7 +47,9 @@ const PresentationCard = ({ movie }) => {
           strokeWidth: 4,
         })}
       />
-      <h3 className="text-lg font-semibold">{movie.title}</h3>
+      <h3 className="text-lg font-semibold">
+        {movie.title ? movie.title : movie.name}
+      </h3>
       <p className="text-gray-500">{movie.release_date}</p>
       <p className="mt-2 text-sm text-gray-700">
         Cantidad de votos: {movie.vote_count}

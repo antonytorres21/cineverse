@@ -1,10 +1,16 @@
-import React from 'react';
+import React, { useState } from "react";
+import { useEffect } from "react";
+import { useLocation } from "react-router-dom";
 
-function Details(){
+function Details() {
+  const [production, setProduction] = useState();
+  const location = useLocation();
 
-return (<>
-    
-</>)
+  useEffect(() => {
+    async function fetchProduction() {}
+    fetchProduction();
+  }, []);
+  return <></>;
 }
 
 export default Details;

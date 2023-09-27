@@ -34,12 +34,12 @@ const SearchSection = () => {
 
   return (
     <div
-      className="container relative h-72 bg-origin-content bg-cover bg-center "
+      className="relative h-72 bg-cover bg-center w-screen"
       style={{
         backgroundImage: `url('${backgroundImage}')`,
       }}
     >
-      <div className="bg-opacity-70 absolute inset-0 bg-blue-light">
+      <div className="bg-opacity-70 absolute inset-0 bg-blue-light w-screen">
         <div className="flex flex-col items-center justify-center h-full p-6 z-30 text-white">
           <h1 className="font-semibold">Encuentra tu pelicula favorita</h1>
           <div className="px-6 rounded-md items-center justify-center flex my-4 md:my-0">
