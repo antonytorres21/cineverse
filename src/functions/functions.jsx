@@ -23,33 +23,6 @@ export async function getPopularPosters() {
   }
 }
 
-export async function getPopularMovies(page) {
-  try {
-    const options = {
-      method: "GET",
-      headers: {
-        accept: "application/json",
-      },
-    };
-    const response = await fetch(
-      `https://api.themoviedb.org/3/movie/popular?api_key=${API_KEY}&language=en-US&page=${page}`,
-      options
-    );
-    if (!response.ok) {
-      throw new Error("Network response was not ok");
-    }
-    const data = await response.json();
-    const results = data.results;
-    const currentPage = parseInt(data.page);
-    const totalPages = data.total_pages;
-
-    return { results, currentPage, totalPages };
-  } catch (error) {
-    console.error("Error fetching popular movies:", error.message);
-    return null;
-  }
-}
-
 export async function getPopularMovies5() {
   const options = {
     method: "GET",
@@ -193,20 +166,6 @@ export function colorBasedOnValue(value) {
   return matchingCondition.color;
 }
 
-export async function getPopularStreamingSeries() {
-  try {
-    const response = await fetch(
-      `https://api.themoviedb.org/3/discover/tv?api_key=${API_KEY}&language=en-US&sort_by=popularity.desc&page=1&with_watch_providers=8`
-    );
-    const result = await response.json();
-    return result.results;
-  } catch (error) {
-    throw new Error(
-      "Error obteniendo las series populares de streaming:",
-      error
-    );
-  }
-}
 // Función para obtener las series populares
 export async function getTrendingSeries() {
   try {
@@ -257,6 +216,215 @@ export async function searchFunction(keyword, page) {
 
     return { results, currentPage, totalPages };
   } catch (error) {
-    throw new Error("Error");
+    throw new Error("Error" + error);
+  }
+}
+
+export async function getBillboardMovie(page) {
+  try {
+    const options = {
+      method: "GET",
+      headers: {
+        accept: "application/json",
+        Authorization:
+          "Bearer eyJhbGciOiJIUzI1NiJ9.eyJhdWQiOiJjN2UxMzc4ODUzMGM5YmU4ZjA3ZDVlNjQ5ZGI2YmUzOSIsInN1YiI6IjY0YzJlZjE3NjZhMGQzMDBlN2Q1M2MxNSIsInNjb3BlcyI6WyJhcGlfcmVhZCJdLCJ2ZXJzaW9uIjoxfQ.-B_kq7RMTBc74aTw_8yk7SWon1R5nMKVxwkpWLT4WW8",
+      },
+    };
+
+    const response = await fetch(
+      `https://api.themoviedb.org/3/movie/now_playing?language=en-US&page=${page}`,
+      options
+    );
+    const data = await response.json();
+    const results = data.results;
+    const currentPage = parseInt(data.page);
+    const totalPages = data.total_pages;
+    const dateMax = data.dates.maximum;
+    const dateMin = data.dates.minimum;
+
+    return { results, currentPage, totalPages, dateMax, dateMin };
+  } catch (error) {
+    throw new Error("Error" + error);
+  }
+}
+export async function getUpComingMovie(page) {
+  try {
+    const options = {
+      method: "GET",
+      headers: {
+        accept: "application/json",
+        Authorization:
+          "Bearer eyJhbGciOiJIUzI1NiJ9.eyJhdWQiOiJjN2UxMzc4ODUzMGM5YmU4ZjA3ZDVlNjQ5ZGI2YmUzOSIsInN1YiI6IjY0YzJlZjE3NjZhMGQzMDBlN2Q1M2MxNSIsInNjb3BlcyI6WyJhcGlfcmVhZCJdLCJ2ZXJzaW9uIjoxfQ.-B_kq7RMTBc74aTw_8yk7SWon1R5nMKVxwkpWLT4WW8",
+      },
+    };
+
+    const response = await fetch(
+      `https://api.themoviedb.org/3/movie/upcoming?language=en-US&page=${page}`,
+      options
+    );
+    const data = await response.json();
+    const results = data.results;
+    const currentPage = parseInt(data.page);
+    const totalPages = data.total_pages;
+    const dateMax = data.dates.maximum;
+    const dateMin = data.dates.minimum;
+
+    return { results, currentPage, totalPages, dateMax, dateMin };
+  } catch (error) {}
+}
+
+export async function getTopRatedMovie(page) {
+  try {
+    const options = {
+      method: "GET",
+      headers: {
+        accept: "application/json",
+        Authorization:
+          "Bearer eyJhbGciOiJIUzI1NiJ9.eyJhdWQiOiJjN2UxMzc4ODUzMGM5YmU4ZjA3ZDVlNjQ5ZGI2YmUzOSIsInN1YiI6IjY0YzJlZjE3NjZhMGQzMDBlN2Q1M2MxNSIsInNjb3BlcyI6WyJhcGlfcmVhZCJdLCJ2ZXJzaW9uIjoxfQ.-B_kq7RMTBc74aTw_8yk7SWon1R5nMKVxwkpWLT4WW8",
+      },
+    };
+
+    const response = await fetch(
+      `https://api.themoviedb.org/3/movie/top_rated?language=en-US&page=${page}`,
+      options
+    );
+    const data = await response.json();
+    const results = data.results;
+    const currentPage = parseInt(data.page);
+    const totalPages = data.total_pages;
+
+    return { results, currentPage, totalPages };
+  } catch (error) {
+    throw new Error("Error" + error);
+  }
+}
+export async function getPopularMovies(page) {
+  try {
+    const options = {
+      method: "GET",
+      headers: {
+        accept: "application/json",
+      },
+    };
+    const response = await fetch(
+      `https://api.themoviedb.org/3/movie/popular?api_key=${API_KEY}&language=en-US&page=${page}`,
+      options
+    );
+    if (!response.ok) {
+      throw new Error("Network response was not ok");
+    }
+    const data = await response.json();
+    const results = data.results;
+    const currentPage = parseInt(data.page);
+    const totalPages = data.total_pages;
+
+    return { results, currentPage, totalPages };
+  } catch (error) {
+    console.error("Error fetching popular movies:", error.message);
+    return null;
+  }
+}
+
+export async function getPopularSeries(page) {
+  try {
+    const options = {
+      method: "GET",
+      headers: {
+        accept: "application/json",
+        Authorization:
+          "Bearer eyJhbGciOiJIUzI1NiJ9.eyJhdWQiOiJjN2UxMzc4ODUzMGM5YmU4ZjA3ZDVlNjQ5ZGI2YmUzOSIsInN1YiI6IjY0YzJlZjE3NjZhMGQzMDBlN2Q1M2MxNSIsInNjb3BlcyI6WyJhcGlfcmVhZCJdLCJ2ZXJzaW9uIjoxfQ.-B_kq7RMTBc74aTw_8yk7SWon1R5nMKVxwkpWLT4WW8",
+      },
+    };
+
+    const response = await fetch(
+      `https://api.themoviedb.org//3/tv/popular?language=en-US&page=${page}`,
+      options
+    );
+    const data = await response.json();
+    const results = data.results;
+    const currentPage = parseInt(data.page);
+    const totalPages = data.total_pages;
+
+    return { results, currentPage, totalPages };
+  } catch (error) {
+    throw new Error("Error" + error);
+  }
+}
+
+export async function getAirToday(page) {
+  try {
+    const options = {
+      method: "GET",
+      headers: {
+        accept: "application/json",
+        Authorization:
+          "Bearer eyJhbGciOiJIUzI1NiJ9.eyJhdWQiOiJjN2UxMzc4ODUzMGM5YmU4ZjA3ZDVlNjQ5ZGI2YmUzOSIsInN1YiI6IjY0YzJlZjE3NjZhMGQzMDBlN2Q1M2MxNSIsInNjb3BlcyI6WyJhcGlfcmVhZCJdLCJ2ZXJzaW9uIjoxfQ.-B_kq7RMTBc74aTw_8yk7SWon1R5nMKVxwkpWLT4WW8",
+      },
+    };
+
+    const response = await fetch(
+      `https://api.themoviedb.org/3/tv/airing_today?language=en-US&page=${page}`,
+      options
+    );
+    const data = await response.json();
+    const results = data.results;
+    const currentPage = parseInt(data.page);
+    const totalPages = data.total_pages;
+
+    return { results, currentPage, totalPages };
+  } catch (error) {
+    throw new Error("Error" + error);
+  }
+}
+
+export async function getOnAirSeries(page) {
+  try {
+    const options = {
+      method: "GET",
+      headers: {
+        accept: "application/json",
+        Authorization:
+          "Bearer eyJhbGciOiJIUzI1NiJ9.eyJhdWQiOiJjN2UxMzc4ODUzMGM5YmU4ZjA3ZDVlNjQ5ZGI2YmUzOSIsInN1YiI6IjY0YzJlZjE3NjZhMGQzMDBlN2Q1M2MxNSIsInNjb3BlcyI6WyJhcGlfcmVhZCJdLCJ2ZXJzaW9uIjoxfQ.-B_kq7RMTBc74aTw_8yk7SWon1R5nMKVxwkpWLT4WW8",
+      },
+    };
+
+    const response = await fetch(
+      `https://api.themoviedb.org/3/tv/on_the_air?language=en-US&page=${page}`,
+      options
+    );
+    const data = await response.json();
+    const results = data.results;
+    const currentPage = parseInt(data.page);
+    const totalPages = data.total_pages;
+
+    return { results, currentPage, totalPages };
+  } catch (error) {
+    throw new Error("Error" + error);
+  }
+}
+
+export async function getTopRatedSeries(page) {
+  try {
+    const options = {
+      method: "GET",
+      headers: {
+        accept: "application/json",
+        Authorization:
+          "Bearer eyJhbGciOiJIUzI1NiJ9.eyJhdWQiOiJjN2UxMzc4ODUzMGM5YmU4ZjA3ZDVlNjQ5ZGI2YmUzOSIsInN1YiI6IjY0YzJlZjE3NjZhMGQzMDBlN2Q1M2MxNSIsInNjb3BlcyI6WyJhcGlfcmVhZCJdLCJ2ZXJzaW9uIjoxfQ.-B_kq7RMTBc74aTw_8yk7SWon1R5nMKVxwkpWLT4WW8",
+      },
+    };
+
+    const response = await fetch(
+      `https://api.themoviedb.org/3/tv/top_rated?language=en-US&page=${page}`,
+      options
+    );
+    const data = await response.json();
+    const results = data.results;
+    const currentPage = parseInt(data.page);
+    const totalPages = data.total_pages;
+
+    return { results, currentPage, totalPages };
+  } catch (error) {
+    throw new Error("Error" + error);
   }
 }

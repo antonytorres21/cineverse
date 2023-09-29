@@ -1,7 +1,10 @@
 import React from "react";
 import defaulIMG from "../assets/DefaultImage.png";
-
+import { CircularProgressbar, buildStyles } from "react-circular-progressbar";
+import { colorBasedOnValue } from "../functions/functions";
+import "react-circular-progressbar/dist/styles.css";
 const PresentationCardColumn = ({ movie }) => {
+  const progress = (movie.vote_average * 10).toFixed(0);
   return (
     <div
       key={movie.id}
@@ -19,14 +22,28 @@ const PresentationCardColumn = ({ movie }) => {
           alt={movie.title}
           className="mb-2 rounded h-auto w-auto"
         />
+        <CircularProgressbar
+          background
+          backgroundPadding={6}
+          className="h-14 absolute flex top-96 left-28"
+          value={movie.vote_average * 10}
+          text={`${progress}%`}
+          strokeWidth={6}
+          styles={buildStyles({
+            backgroundColor: "#021A289E",
+            pathColor: colorBasedOnValue(progress),
+            textColor: "#FFFFFF",
+            trailColor: "#333",
+            strokeLinecap: "round",
+            textSize: "28px",
+            strokeWidth: 4,
+          })}
+        />
       </div>
       <h3 className="text-lg font-semibold">
         {movie.title ? movie.title : movie.name}
       </h3>
       <p className="text-gray-500">{movie.release_date}</p>
-      <p className="mt-2 text-sm text-gray-700">
-        Cantidad de votos: {movie.vote_count}
-      </p>
     </div>
   );
 };

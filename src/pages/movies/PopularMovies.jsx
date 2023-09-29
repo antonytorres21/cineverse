@@ -4,7 +4,7 @@ import PresentationCardColumn from "../../components/PresentationCardColumn";
 import Pagination from "../../components/Pagination";
 
 function PopularMovies() {
-  const [data, setData] = useState([]);
+  const [results, setData] = useState([]);
   const [currentPage, setCurrentPage] = useState(1);
   const [totalPages, setTotalPages] = useState(0);
 
@@ -31,7 +31,7 @@ function PopularMovies() {
   return (
     <>
       <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4 px-6">
-        {data.map((movie) => (
+        {results.map((movie) => (
           <PresentationCardColumn key={movie.id} movie={movie} />
         ))}
       </div>

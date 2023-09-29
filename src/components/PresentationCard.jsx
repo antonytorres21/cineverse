@@ -2,16 +2,11 @@ import React from "react";
 import { CircularProgressbar, buildStyles } from "react-circular-progressbar";
 import "react-circular-progressbar/dist/styles.css";
 import { colorBasedOnValue } from "../functions/functions";
-import { useNavigate } from "react-router-dom";
+//import { useNavigate } from "react-router-dom";
 import defaulIMG from "../assets/DefaultImage.png";
 
 const PresentationCard = ({ movie }) => {
   const progress = (movie.vote_average * 10).toFixed(0);
-  const navigate = useNavigate();
-
-  const handleCardClick = (search) => {
-    navigate(`/search/${search}`, { state: { movie } });
-  };
 
   return (
     <div
@@ -51,11 +46,16 @@ const PresentationCard = ({ movie }) => {
         {movie.title ? movie.title : movie.name}
       </h3>
       <p className="text-gray-500">{movie.release_date}</p>
-      <p className="mt-2 text-sm text-gray-700">
-        Cantidad de votos: {movie.vote_count}
-      </p>
     </div>
   );
 };
 
 export default PresentationCard;
+
+/**
+ * const navigate = useNavigate();
+
+  const handleCardClick = (search) => {
+    navigate(`/search/${search}`, { state: { movie } });
+  };
+ */

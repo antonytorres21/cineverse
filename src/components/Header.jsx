@@ -62,28 +62,28 @@ function Header() {
                       onMouseLeave={() => closeMoviesMenu()}
                     >
                       <Link
-                        to="/movie/Popular"
+                        to="/movie/Populares"
                         className="text-black hover:font-semibold transition-all ease-linear duration-500"
                       >
                         Popular
                       </Link>
                       <Link
-                        to="/populares"
+                        to="/movie/Billboard"
                         className="text-black hover:font-semibold transition-all ease-linear duration-500"
                       >
                         Cartelera
                       </Link>
                       <Link
-                        to="/ultimos-agregados"
+                        to="/movie/UpComing"
                         className="text-black hover:font-semibold transition-all ease-linear duration-500"
                       >
                         Proximos
                       </Link>
                       <Link
-                        to="/ultimos-agregados"
+                        to="/movie/Top-Rated"
                         className="text-black hover:font-semibold transition-all ease-linear duration-500"
                       >
-                        Mejor Votados
+                        Mejor Votadas
                       </Link>
                     </div>
                   </div>
@@ -107,28 +107,28 @@ function Header() {
                       onMouseLeave={() => closeTvMenu()}
                     >
                       <Link
-                        to="/tendencias"
+                        to="/tv/Populares"
                         className="text-black hover:font-semibold transition-all ease-linear duration-500"
                       >
                         Populares
                       </Link>
                       <Link
-                        to="/populares"
+                        to="/tv/On-Air-Today"
                         className="text-black hover:font-semibold transition-all ease-linear duration-500"
                       >
                         Emitiendo
                       </Link>
                       <Link
-                        to="/ultimos-agregados"
+                        to="/tv/OnTV"
                         className="text-black hover:font-semibold transition-all ease-linear duration-500"
                       >
                         En Televión
                       </Link>
                       <Link
-                        to="/ultimos-agregados"
+                        to="/tv/Top-Rated"
                         className="text-black hover:font-semibold transition-all ease-linear duration-500"
                       >
-                        Últimos Agregados
+                        Mejor Valorados
                       </Link>
                     </div>
                   </div>
@@ -136,7 +136,7 @@ function Header() {
                     to="/"
                     className="text-white px-3 py-2 rounded-md text-sm font-medium"
                   >
-                    Mejor Votados
+                    Sobre la web
                   </Link>
                 </div>
               </div>
