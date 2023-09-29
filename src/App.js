@@ -5,6 +5,8 @@ import Layout from "./pages/Layout";
 import SearchResponse from "./pages/SearchResponse";
 import Movies from "./pages/Movies";
 import Details from "./pages/Details";
+import PopularMovies from "./pages/movies/PopularMovies";
+
 
 function App() {
   return (
@@ -16,6 +18,7 @@ function App() {
           <Route path="movie">
             <Route index element={<Movies />} />
             <Route path="Details:name" element={<Details />} />
+            <Route path="Popular" element={<PopularMovies />} />
           </Route>
         </Route>
       </Routes>

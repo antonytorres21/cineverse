@@ -1,6 +1,6 @@
 import { API_KEY } from "../keys/Keys";
 
-export async function getPopularMovies() {
+export async function getPopularPosters() {
   try {
     const options = {
       method: "GET",
@@ -17,6 +17,33 @@ export async function getPopularMovies() {
     }
     const result = await response.json();
     return result;
+  } catch (error) {
+    console.error("Error fetching popular movies:", error.message);
+    return null;
+  }
+}
+
+export async function getPopularMovies(page) {
+  try {
+    const options = {
+      method: "GET",
+      headers: {
+        accept: "application/json",
+      },
+    };
+    const response = await fetch(
+      `https://api.themoviedb.org/3/movie/popular?api_key=${API_KEY}&language=en-US&page=${page}`,
+      options
+    );
+    if (!response.ok) {
+      throw new Error("Network response was not ok");
+    }
+    const data = await response.json();
+    const results = data.results;
+    const currentPage = parseInt(data.page);
+    const totalPages = data.total_pages;
+
+    return { results, currentPage, totalPages };
   } catch (error) {
     console.error("Error fetching popular movies:", error.message);
     return null;
@@ -59,7 +86,7 @@ export async function getPopularMoviesCine() {
 
 export async function getRandomPopularMoviePosterUrl() {
   try {
-    const popularMovies = await getPopularMovies();
+    const popularMovies = await getPopularPosters();
     if (!popularMovies || popularMovies.results.length === 0) {
       throw new Error("No se encontraron películas populares");
     }
@@ -80,7 +107,7 @@ export async function getRandomPopularMoviePosterUrl() {
 
 export async function getRandomPopularMovieBackdropUrl() {
   try {
-    const popularMovies = await getPopularMovies();
+    const popularMovies = await getPopularPosters();
     if (!popularMovies || popularMovies.results.length === 0) {
       throw new Error("No se encontraron películas populares");
     }

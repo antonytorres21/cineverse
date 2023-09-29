@@ -6,7 +6,7 @@ function Pagination({ currentPage, totalPages, onPageChange }) {
 
 
   return (
-    <div className="flex items-center justify-center space-x-2 mt-4">
+    <div className="flex items-center justify-center space-x-2 my-4">
       <button
         onClick={() => onPageChange(currentPage - 1)}
         disabled={isFirstPage}

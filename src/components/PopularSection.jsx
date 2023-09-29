@@ -22,8 +22,6 @@ function PopularSection() {
             getMovies = await getPopularTV();
             break;
           default:
-            console.error("Opción no válida:", option);
-            getMovies = await getPopularMoviesCine();
             return;
         }
         setMovies(getMovies);

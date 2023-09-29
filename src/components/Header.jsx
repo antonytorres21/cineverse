@@ -4,11 +4,30 @@ import { PiTelevisionSimpleBold } from "react-icons/pi";
 import { BiCameraMovie } from "react-icons/bi";
 
 function Header() {
+  const [isMoviesMenuOpen, setIsMoviesMenuOpen] = useState(false);
+  const [isTvMenuOpen, setIsTvMenuOpen] = useState(false);
   const [isOpen, setIsOpen] = useState(false);
 
   const toggleNavbar = () => {
     setIsOpen(!isOpen);
   };
+
+  const openMoviesMenu = () => {
+    setIsMoviesMenuOpen(true);
+  };
+
+  const closeMoviesMenu = () => {
+    setIsMoviesMenuOpen(false);
+  };
+
+  const openTvMenu = () => {
+    setIsTvMenuOpen(true);
+  };
+
+  const closeTvMenu = () => {
+    setIsTvMenuOpen(false);
+  };
+
   return (
     <div>
       <nav className="bg-blue-light w-full sticky top-0 z-50">
@@ -23,29 +42,101 @@ function Header() {
                   >
                     Home
                   </Link>
-                  <Link
-                    to="/"
-                    className="text-white px-3 py-2 rounded-md text-sm font-medium flex flex-row items-center "
+                  <div
+                    className="group relative"
+                    onMouseEnter={() => openMoviesMenu()}
+                    onMouseLeave={() => closeMoviesMenu()}
                   >
-                    Peliculas <BiCameraMovie />
-                  </Link>
-                  <Link
-                    to="/"
-                    className="text-white px-3 py-2 rounded-md text-sm font-medium flex flex-row items-center"
+                    <Link
+                      to="/"
+                      className="text-white px-3 py-2 rounded-md text-sm font-medium flex flex-row items-center "
+                    >
+                      Películas <BiCameraMovie />
+                    </Link>
+
+                    <div
+                      className={`absolute bg-white border border-gray-400 p-2 space-y-2 top-full left-0 rounded-lg grid grid-cols-1 ${
+                        isMoviesMenuOpen ? "block" : "hidden"
+                      }`}
+                      onMouseEnter={() => openMoviesMenu()}
+                      onMouseLeave={() => closeMoviesMenu()}
+                    >
+                      <Link
+                        to="/movie/Popular"
+                        className="text-black hover:font-semibold transition-all ease-linear duration-500"
+                      >
+                        Popular
+                      </Link>
+                      <Link
+                        to="/populares"
+                        className="text-black hover:font-semibold transition-all ease-linear duration-500"
+                      >
+                        Cartelera
+                      </Link>
+                      <Link
+                        to="/ultimos-agregados"
+                        className="text-black hover:font-semibold transition-all ease-linear duration-500"
+                      >
+                        Proximos
+                      </Link>
+                      <Link
+                        to="/ultimos-agregados"
+                        className="text-black hover:font-semibold transition-all ease-linear duration-500"
+                      >
+                        Mejor Votados
+                      </Link>
+                    </div>
+                  </div>
+                  <div
+                    className="group relative"
+                    onMouseEnter={() => openTvMenu()}
+                    onMouseLeave={() => closeTvMenu()}
                   >
-                    TV <PiTelevisionSimpleBold />
-                  </Link>
+                    <Link
+                      to="/"
+                      className="text-white px-3 py-2 rounded-md text-sm font-medium flex flex-row items-center"
+                    >
+                      Series de TV <PiTelevisionSimpleBold />
+                    </Link>
+
+                    <div
+                      className={`absolute bg-white border border-gray-400 p-2 space-y-2 top-full left-0 rounded-lg grid grid-cols-1 ${
+                        isTvMenuOpen ? "block" : "hidden"
+                      }`}
+                      onMouseEnter={() => openTvMenu()}
+                      onMouseLeave={() => closeTvMenu()}
+                    >
+                      <Link
+                        to="/tendencias"
+                        className="text-black hover:font-semibold transition-all ease-linear duration-500"
+                      >
+                        Populares
+                      </Link>
+                      <Link
+                        to="/populares"
+                        className="text-black hover:font-semibold transition-all ease-linear duration-500"
+                      >
+                        Emitiendo
+                      </Link>
+                      <Link
+                        to="/ultimos-agregados"
+                        className="text-black hover:font-semibold transition-all ease-linear duration-500"
+                      >
+                        En Televión
+                      </Link>
+                      <Link
+                        to="/ultimos-agregados"
+                        className="text-black hover:font-semibold transition-all ease-linear duration-500"
+                      >
+                        Últimos Agregados
+                      </Link>
+                    </div>
+                  </div>
                   <Link
                     to="/"
                     className="text-white px-3 py-2 rounded-md text-sm font-medium"
                   >
-                    Series
-                  </Link>
-                  <Link
-                    to="/"
-                    className="text-white px-3 py-2 rounded-md text-sm font-medium"
-                  >
-                    Sobre la Web
+                    Mejor Votados
                   </Link>
                 </div>
               </div>

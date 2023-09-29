@@ -33,6 +33,7 @@ function SearchResponse() {
   const handleChange = (event) => {
     setTerm(event.target.value);
   };
+  
   const handlePageChange = (page) => {
     if (page !== null && page !== undefined) {
       setCurrentPage(page);
@@ -64,9 +65,11 @@ function SearchResponse() {
 
     fetchResult();
   }, [searchTerm, search, currentPage]);
+
   const handleCardClick = (search) => {
     navigate(`/search/${search}`, { state: { search } });
   };
+
   return (
     <>
       <div className="px-6 py-5 rounded-md items-center justify-center flex md:my-0 ">
