@@ -65,7 +65,7 @@ const TrendingMovies = () => {
       <div className="overflow-x-auto">
         <div className="flex gap-4 rounded p-4">
           {trendingMovies.map((movie) => (
-            <PresentationCard key={movie.id} movie={movie} /> // Utiliza el componente PresentationCard
+            <PresentationCard key={movie.id} movie={movie} type="movie"/> // Utiliza el componente PresentationCard
           ))}
         </div>
       </div>

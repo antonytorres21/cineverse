@@ -33,7 +33,7 @@ function SearchResponse() {
   const handleChange = (event) => {
     setTerm(event.target.value);
   };
-  
+
   const handlePageChange = (page) => {
     if (page !== null && page !== undefined) {
       setCurrentPage(page);
@@ -101,7 +101,11 @@ function SearchResponse() {
         {!results.length
           ? getNoResultsMessage(term)
           : results.map((movie) => (
-              <PresentationCardColumn key={movie.id} movie={movie} />
+              <PresentationCardColumn
+                key={movie.id}
+                movie={movie}
+                type={movie.media_type}
+              />
             ))}
       </div>
       <Pagination

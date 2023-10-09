@@ -18,6 +18,7 @@ function UpComing() {
         setDateMin(data.dateMin);
         setResults(data.results);
         setTotalPages(data.totalPages);
+        document.title = "Próximamente";
       } catch (error) {
         console.error("Error fetching data:", error);
       }
@@ -34,7 +35,7 @@ function UpComing() {
     <>
       <div className="">
         <div className="flex items-center justify-center py-2">
-          <h1 className="italic font-medium">En Cartelera</h1>
+          <h1 className="italic font-medium">En Próximanete Cartelera</h1>
         </div>
         <div className="flex items-center justify-between my-3">
           <h2 className="border border-transparent hover:border hover:border-gray-300 rounded-lg py-1 mx-6">
@@ -50,7 +51,7 @@ function UpComing() {
           <LoadingSpinner />
         ) : (
           results.map((movie) => (
-            <PresentationCardColumn key={movie.id} movie={movie} />
+            <PresentationCardColumn key={movie.id} movie={movie} type="movie" />
           ))
         )}
       </div>

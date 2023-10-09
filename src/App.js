@@ -14,6 +14,7 @@ import PopularSeries from "./pages/tv/PupularSeries";
 import OnAirToday from "./pages/tv/OnAirTodaySeries";
 import OnTV from "./pages/tv/OnTV";
 import TopRatedSeries from "./pages/tv/TopRatedSerie";
+import AboutPage from "./pages/About";
 
 function App() {
   return (
@@ -21,10 +22,11 @@ function App() {
       <Routes>
         <Route path="/" element={<Layout />}>
           <Route index element={<Home />} />
+          <Route path="AboutThis" element={<AboutPage />} />
           <Route path="/search/:search" element={<SearchResponse />} />
           <Route path="movie">
             <Route index element={<Movies />} />
-            <Route path="Details:name" element={<Details />} />
+            <Route path="Details/:name" element={<Details />} />
             <Route path="Populares" element={<PopularMovies />} />
             <Route path="Billboard" element={<Billboard />} />
             <Route path="UpComing" element={<UpComing />} />
@@ -32,7 +34,7 @@ function App() {
           </Route>
           <Route path="TV">
             <Route index element={<TV />} />
-            <Route path="Details:name" element={<Details />} />
+            <Route path="Details/:name" element={<Details />} />
             <Route path="Populares" element={<PopularSeries />} />
             <Route path="On-Air-Today" element={<OnAirToday />} />
             <Route path="OnTV" element={<OnTV />} />

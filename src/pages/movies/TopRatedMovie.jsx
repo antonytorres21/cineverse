@@ -14,6 +14,7 @@ function TopRated() {
         const data = await getTopRatedMovie(currentPage);
         setResults(data.results);
         setTotalPages(data.totalPages);
+        document.title = "Lo Mejor Votado";
       } catch (error) {
         console.error("Error fetching data:", error);
       }
@@ -29,14 +30,14 @@ function TopRated() {
   return (
     <>
       <div className="flex items-center justify-center my-4">
-        <h1 className="italic font-medium">Lo Mejor Votado de CineVerse</h1>
+        <h1 className="italic font-medium capitalize">Lo mejor votado de CineVerse</h1>
       </div>
       <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4 px-6">
         {!results.length ? (
           <LoadingSpinner />
         ) : (
           results.map((movie) => (
-            <PresentationCardColumn key={movie.id} movie={movie} />
+            <PresentationCardColumn key={movie.id} movie={movie} type="movie" />
           ))
         )}
       </div>

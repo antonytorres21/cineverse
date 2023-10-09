@@ -39,7 +39,7 @@ function PopularSeries() {
           <LoadingSpinner />
         ) : (
           results.map((movie) => (
-            <PresentationCardColumn key={movie.id} movie={movie} />
+            <PresentationCardColumn key={movie.id} movie={movie} type="tv" />
           ))
         )}
       </div>

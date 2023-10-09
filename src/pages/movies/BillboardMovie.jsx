@@ -18,6 +18,7 @@ function Billboard() {
         setDateMin(data.dateMin);
         setResults(data.results);
         setTotalPages(data.totalPages);
+        document.title="En Cartelera"
       } catch (error) {
         console.error("Error fetching data:", error);
       }
@@ -50,7 +51,7 @@ function Billboard() {
           <LoadingSpinner />
         ) : (
           results.map((movie) => (
-            <PresentationCardColumn key={movie.id} movie={movie} />
+            <PresentationCardColumn key={movie.id} movie={movie} type="movie" />
           ))
         )}
       </div>

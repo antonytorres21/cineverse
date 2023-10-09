@@ -14,6 +14,7 @@ function PopularMovies() {
       setData(auxData.results);
       setTotalPages(auxData.totalPages);
       setCurrentPage(auxData.currentPage);
+      document.title = "Lo más Popular";
     } catch (error) {
       console.error("Error fetching data:", error);
     }
@@ -32,7 +33,7 @@ function PopularMovies() {
     <>
       <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4 px-6">
         {results.map((movie) => (
-          <PresentationCardColumn key={movie.id} movie={movie} />
+          <PresentationCardColumn key={movie.id} movie={movie} type="movie" />
         ))}
       </div>
       <Pagination

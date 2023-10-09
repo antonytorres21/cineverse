@@ -5,6 +5,7 @@ import PresentationCard from "./PresentationCard";
 function PopularSection() {
   const [Movies, setMovies] = useState([]);
   const [option, setOption] = useState("Movie");
+  const [type, setType] = useState("");
 
   const handleChange = (aux) => {
     setOption(aux);
@@ -17,9 +18,11 @@ function PopularSection() {
         switch (option) {
           case "Movie":
             getMovies = await getPopularMoviesCine();
+            setType("movie");
             break;
           case "StreamingS":
             getMovies = await getPopularTV();
+            setType("tv");
             break;
           default:
             return;
@@ -68,7 +71,7 @@ function PopularSection() {
       <div className="overflow-x-auto">
         <div className="flex gap-4 rounded p-4">
           {Movies.map((movie) => (
-            <PresentationCard key={movie.id} movie={movie} /> // Utiliza el componente PresentationCard
+            <PresentationCard key={movie.id} movie={movie} type={type} /> // Utiliza el componente PresentationCard
           ))}
         </div>
       </div>

@@ -2,18 +2,41 @@ import React from "react";
 import { CircularProgressbar, buildStyles } from "react-circular-progressbar";
 import "react-circular-progressbar/dist/styles.css";
 import { colorBasedOnValue } from "../functions/functions";
-//import { useNavigate } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import defaulIMG from "../assets/DefaultImage.png";
 
-const PresentationCard = ({ movie }) => {
+const PresentationCard = ({ movie, type = "" }) => {
   const progress = (movie.vote_average * 10).toFixed(0);
+  const navigate = useNavigate();
+
+  const handleCardClick = (movie) => {
+    if (type !== null && type !== "") {
+      if (movie.media_type === "movie") {
+        navigate(`/movie/Details/${movie.title ? movie.title : movie.name}`, {
+          state: { movie, type },
+        });
+      } else {
+        navigate(`/tv/Details/${movie.title ? movie.title : movie.name}`, {
+          state: { movie, type },
+        });
+      }
+    } else if (movie.media_type === "movie") {
+      navigate(`/movie/Details/${movie.title ? movie.title : movie.name}`, {
+        state: { movie, type },
+      });
+    } else {
+      navigate(`/tv/Details/${movie.title ? movie.title : movie.name}`, {
+        state: { movie, type },
+      });
+    }
+  };
 
   return (
     <div
       key={movie.id}
       className="bg-white rounded-lg shadow-md p-3 relative transition-all ease-in-out delay-150 hover:-translate-y-3 hover:scale-105 duration-500 cursor-pointer"
       style={{ minWidth: "200px" }}
-      onClick={() => {}}
+      onClick={() => handleCardClick(movie)}
     >
       <img
         src={

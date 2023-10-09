@@ -15,6 +15,7 @@ function OnTV() {
         const data = await getOnAirSeries(currentPage);
         setResults(data.results);
         setTotalPages(data.totalPages);
+        document.title = "En TV";
       } catch (error) {
         console.error("Error fetching data:", error);
       }
@@ -39,7 +40,7 @@ function OnTV() {
           <LoadingSpinner />
         ) : (
           results.map((movie) => (
-            <PresentationCardColumn key={movie.id} movie={movie} />
+            <PresentationCardColumn key={movie.id} movie={movie} type="tv" />
           ))
         )}
       </div>

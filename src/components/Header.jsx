@@ -133,7 +133,7 @@ function Header() {
                     </div>
                   </div>
                   <Link
-                    to="/"
+                    to="/AboutThis"
                     className="text-white px-3 py-2 rounded-md text-sm font-medium"
                   >
                     Sobre la web
