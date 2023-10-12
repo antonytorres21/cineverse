@@ -10,25 +10,13 @@ const PresentationCard = ({ movie, type = "" }) => {
   const navigate = useNavigate();
 
   const handleCardClick = (movie) => {
-    if (type !== null && type !== "") {
-      if (movie.media_type === "movie") {
-        navigate(`/movie/Details/${movie.title ? movie.title : movie.name}`, {
-          state: { movie, type },
-        });
-      } else {
-        navigate(`/tv/Details/${movie.title ? movie.title : movie.name}`, {
-          state: { movie, type },
-        });
-      }
-    } else if (movie.media_type === "movie") {
-      navigate(`/movie/Details/${movie.title ? movie.title : movie.name}`, {
-        state: { movie, type },
-      });
-    } else {
-      navigate(`/tv/Details/${movie.title ? movie.title : movie.name}`, {
-        state: { movie, type },
-      });
-    }
+    const mediaType = type || (movie.media_type === "movie" ? "movie" : "tv");
+    const titleOrName = movie.title || movie.name;
+    const path = `/${mediaType}/Details/${titleOrName}`;
+
+    navigate(path, {
+      state: { movie, type: mediaType },
+    });
   };
 
   return (

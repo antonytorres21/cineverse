@@ -10,34 +10,24 @@ const PresentationCardColumn = ({ movie, type = "" }) => {
   const navigate = useNavigate();
 
   const handleCardClick = (movie) => {
-    if (type !== null && type !== "") {
-      if (movie.media_type === "movie") {
-        navigate(`/movie/Details/${movie.title ? movie.title : movie.name}`, {
-          state: { movie, type },
-        });
-      } else {
-        navigate(`/tv/Details/${movie.title ? movie.title : movie.name}`, {
-          state: { movie, type },
-        });
-      }
-    } else if (movie.media_type === "movie") {
-      navigate(`/movie/Details/${movie.title ? movie.title : movie.name}`, {
-        state: { movie, type },
-      });
-    } else {
-      navigate(`/tv/Details/${movie.title ? movie.title : movie.name}`, {
-        state: { movie, type },
-      });
-    }
+    const mediaType = type || (movie.media_type === "movie" ? "movie" : "tv");
+    const titleOrName = movie.title || movie.name;
+    const path = `/${mediaType}/Details/${titleOrName}`;
+
+    navigate(path, {
+      state: { movie, type: mediaType },
+    });
   };
+
   return (
     <div
       key={movie.id}
       className="
       bg-white rounded-lg shadow-md p-3 relative transition-all ease-in-out delay-150 hover:-translate-y-3 hover:scale-105 duration-500 cursor-pointer"
       onClick={() => handleCardClick(movie)}
+      style={{ maxWidth: "300px" }}
     >
-      <div className="flex items-center">
+      <div className="flex items-center justify-center">
         <img
           src={
             movie.poster_path
@@ -45,12 +35,12 @@ const PresentationCardColumn = ({ movie, type = "" }) => {
               : defaulIMG
           }
           alt={movie.title}
-          className="mb-2 rounded h-auto w-auto"
+          className="mb-2 rounded w-auto h-96"
         />
         <CircularProgressbar
           background
           backgroundPadding={6}
-          className="h-14 absolute flex top-96 left-28"
+          className="h-14 absolute flex top-80 left-[5.5rem]"
           value={movie.vote_average * 10}
           text={`${progress}%`}
           strokeWidth={6}

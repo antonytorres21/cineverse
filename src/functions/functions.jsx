@@ -1,14 +1,13 @@
 import { API_KEY } from "../keys/Keys";
 
-
 /**
  * The function `formatDate` takes an input date and returns it in the format "dd/mm/yyyy".
  * @returns a formatted date string in the format "dd/mm/yyyy".
  */
 export function formatDate(inputDate) {
   const date = new Date(inputDate);
-  const day = date.getDate().toString().padStart(2, '0');
-  const month = (date.getMonth() + 1).toString().padStart(2, '0');
+  const day = date.getDate().toString().padStart(2, "0");
+  const month = (date.getMonth() + 1).toString().padStart(2, "0");
   const year = date.getFullYear().toString();
   const formattedDate = `${day}/${month}/${year}`;
   return formattedDate;
@@ -22,7 +21,6 @@ export function formatDate(inputDate) {
 export function getYear(StringDate) {
   return StringDate ? StringDate.substring(0, 4) : "";
 }
-
 
 /**
  * The function `getPopularPosters` fetches popular movie posters from an API using a provided API key.
@@ -232,7 +230,6 @@ export function colorBasedOnValue(value) {
   return matchingCondition.color;
 }
 
-
 /**
  * The function `getTrendingSeries` fetches the trending TV series for the week from an API and returns
  * the results.
@@ -339,7 +336,6 @@ export async function getBillboardMovie(page) {
     throw new Error("Error" + error);
   }
 }
-
 
 /**
  * The function `getUpComingMovie` is an asynchronous function that retrieves upcoming movies from an
@@ -565,6 +561,44 @@ export async function getTopRatedSeries(page) {
     const currentPage = parseInt(data.page);
     const totalPages = data.total_pages;
     return { results, currentPage, totalPages };
+  } catch (error) {
+    throw new Error("Error" + error);
+  }
+}
+
+/**
+ * The above function is a JavaScript React function that makes an API call to retrieve the credits for
+ * a specific movie using The Movie Database (TMDB) API.
+ * @returns a promise that resolves to the data fetched from the API endpoint.
+ */
+export async function getCredits(id, type) {
+  try {
+    const options = {
+      method: "GET",
+      headers: {
+        accept: "application/json",
+        Authorization:
+          "Bearer eyJhbGciOiJIUzI1NiJ9.eyJhdWQiOiJjN2UxMzc4ODUzMGM5YmU4ZjA3ZDVlNjQ5ZGI2YmUzOSIsInN1YiI6IjY0YzJlZjE3NjZhMGQzMDBlN2Q1M2MxNSIsInNjb3BlcyI6WyJhcGlfcmVhZCJdLCJ2ZXJzaW9uIjoxfQ.-B_kq7RMTBc74aTw_8yk7SWon1R5nMKVxwkpWLT4WW8",
+      },
+    };
+
+    let response;
+    if (type) {
+      response = await fetch(
+        `https://api.themoviedb.org/3/movie/${id}/credits?language=es-US`,
+        options
+      );
+    } else {
+      response = await fetch(
+        `https://api.themoviedb.org/3/tv/${id}/credits?language=es-US`,
+        options
+      );
+    }
+
+    const data = await response.json();
+    const crew = data.crew;
+    const cast = data.cast;
+    return { crew, cast };
   } catch (error) {
     throw new Error("Error" + error);
   }

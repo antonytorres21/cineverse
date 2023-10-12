@@ -15,6 +15,7 @@ import OnAirToday from "./pages/tv/OnAirTodaySeries";
 import OnTV from "./pages/tv/OnTV";
 import TopRatedSeries from "./pages/tv/TopRatedSerie";
 import AboutPage from "./pages/About";
+import Page404 from "./pages/Page404";
 
 function App() {
   return (
@@ -40,6 +41,7 @@ function App() {
             <Route path="OnTV" element={<OnTV />} />
             <Route path="Top-Rated" element={<TopRatedSeries />} />
           </Route>
+          <Route path="*" element={<Page404 />} />
         </Route>
       </Routes>
     </Router>
